@@ -1,0 +1,79 @@
+<html lang="en">
+    <head>
+        <title>Pokemon Search - Humberto Messeguer</title>
+		<style>
+		body {
+			background-color: lightblue;
+			}
+			
+			https://66.media.tumblr.com/8e4aafd22dfc23592ea2bf16f4f7be87/tumblr_mze2tugzvO1qh44dro1_500.gif
+		</style>
+    </head>
+    <body>
+        <script>
+		//location used for locating ID values for Pokemon
+            function readID(event) {
+                event.preventDefault();
+				//variable for pokemonID
+                let element = document.querySelector("#pokeID");
+				//loop area
+                fetch("/id/" + element.value)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((processed) => {
+                    let report = document.querySelector("#reportingArea");
+
+                    if(processed.error) {
+                        report.innerHTML = processed.error;
+                    }
+                    else {
+                        report.innerHTML = processed.name;
+                    }
+                });
+            }
+
+            function readName(event) {
+                event.preventDefault();
+				//variable for pokemonID
+                let element = document.querySelector("#pokeName");
+				//loop area
+                fetch("/name/" + element.value)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((processed) => {
+                    let report = document.querySelector("#reportingArea");
+
+                    if(processed.error) {
+                        report.innerHTML = processed.error; 
+                    }
+                    else {
+                        report.innerHTML = processed.name; 
+                    }
+                });
+            }
+        </script>
+		<center>
+		<img src="https://66.media.tumblr.com/8e4aafd22dfc23592ea2bf16f4f7be87/tumblr_mze2tugzvO1qh44dro1_500.gif" alt="pokemonnn">
+		<!--HTML Area -->
+        <h1>Find Any Pokemon!</h1>
+        <h2>ID</h2>
+		<!--button used to display Pokemon ID -->
+        <form onsubmit="readID(event)">
+            <input id="pokeID" type="text" placeholder="Enter Pokemon ID">
+            <button>Submit</button>
+        </form>
+        <h2>Name</h2>
+		<!--button used to display Pokemon Name -->
+        <form onsubmit="readName(event)">
+            <input id="pokeName" type="text" placeholder="Enter Pokemon Name">
+            <button>Submit</button>
+        </form>
+        <hr>
+		<!--Display results of Pokemon info -->
+        <h2>Result</h2>
+        <div id="reportingArea"></div>
+		</center>
+    </body>
+</html>
